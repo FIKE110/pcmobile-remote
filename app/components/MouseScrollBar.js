@@ -18,7 +18,7 @@ const styles=StyleSheet.create({
         backgroundColor:'gray',
         position:'absolute',
         width:18,
-        height:700,
+        height:650,
         borderRadius:20,
         right:12,
 

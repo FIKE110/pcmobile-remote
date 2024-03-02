@@ -23,8 +23,8 @@ export default function ConnectedDevices(props){
             </TouchableOpacity>
             </View>
             <ScrollView style={styles.deviceview} >
-                {devices.map((device)=>(
-                    <DeviceInfo key={device} device={device}/>
+                {devices.map((device,id)=>(
+                    <DeviceInfo key={id} device={device}/>
                     )
                 )}
             </ScrollView>

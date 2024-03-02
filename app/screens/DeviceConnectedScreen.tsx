@@ -11,6 +11,8 @@ export default function DeviceConnectedScreen(){
 const styles=StyleSheet.create({
     mainview:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        justifyContent:'center',
+        alignItems:'center'
     }
 })

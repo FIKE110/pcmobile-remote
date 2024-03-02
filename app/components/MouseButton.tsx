@@ -7,7 +7,7 @@ type extraStyle = {
 
 export const MouseButton = (props) =>{
     return (
-        <TouchableOpacity
+        <TouchableOpacity onPress={props.press}
             style={[styles.view,{flex:props.extraStyle.flexProp, backgroundColor:props.extraStyle.colorProp}]}>
         </TouchableOpacity>
     )

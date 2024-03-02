@@ -13,7 +13,7 @@ export default function HometabNavigator(){
             tabBarInactiveBackgroundColor:'#393942',
             tabBarActiveTintColor:'white',
             tabBarLabelStyle:{fontSize:12,padding:0,marginBottom:4},
-            tabBarStyle:{borderTopWidth:1,borderColor:'black'}
+            tabBarStyle:{height:55,borderTopWidth:1,borderColor:'black'}
             }}>
             <Tab.Screen name='home' 
             options={{tabBarIcon:()=>(<Image source={require('../assets/icons8-home-96.png')} style={{
@@ -25,12 +25,6 @@ export default function HometabNavigator(){
               width:20,height:20,marginTop:10
             }}/>)}}
             name='setting' component={SettingsScreen} />
-
-            <Tab.Screen
-             options={{tabBarIcon:()=>(<Image source={require('../assets/icons8-about-100.png')} style={{
-              width:20,height:20,marginTop:10
-            }}/>)}}
-            name='about' component={AboutScreen} />
           </Tab.Navigator> 
     )
 

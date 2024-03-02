@@ -1,37 +1,56 @@
-import { useEffect ,useState} from "react"
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native"
+import {useRef, useContext, useEffect ,useState} from "react"
+import { ActivityIndicator, StyleSheet,View,BackHandler } from "react-native"
 import ConnectLabel from "../components/ConnectLabel"
-import TcpSocket from "react-native-tcp-socket"
 import {storage} from "../../App"
+import { useSocket} from '../SocketContext';
 
 export default function ConnectStatus({route,navigation}){
     const [connected,setConnected] = useState(false)
     const [label,setLabel] =useState('Connected')
+    const {connectToServer,setDevice,connectUdpSocket} = useSocket()
+
+
+    const createClient=(options,onConnect)=>connectToServer(options,onConnect)
 
     useEffect(()=>{
+            const backHandler=BackHandler.addEventListener(
+                'hardwareBackPress',
+                ()=>{
+                   if(navigation) navigation.popToTop()
+                return true
+                }
+            )
         console.log('hello')
         const options = {
             port: route.params.device.port,
             host: route.params.device.ip,
         };
-        
-        const client=TcpSocket.createConnection(options,()=>{
+
+        const successful=()=>{
+            setTimeout(()=>navigation.navigate("controllerScreen"),1000)
             setConnected(true)
-            saveIp(options)
-            client.write('hello\n')
-            navigation.navigate('third')
-        })
-        client.on('data',(data)=>{
+            setDevice(options)
+            connectUdpSocket()
+        }
 
-        })
+        const client=createClient(options,successful)
 
-        client.on('error',(err)=>{
-            console.log(err)
-            setTimeout(()=>navigation.goBack(),2000)
-            setLabel('Not connected')
-            setConnected(true)
-        })
-
+            // Handle incoming data
+    client.on('data', (data) => {
+        console.log('Received:', data.toString());
+      });
+  
+      // Handle socket closure
+      client.on('close', () => {
+        console.log('Connection closed');
+      });
+  
+      // Handle errors
+      client.on('error', (error) => {
+        console.error('Error:', error);
+        setTimeout(()=>navigation.navigate("homeScreen"),500)
+      });
+        return ()=>backHandler.remove()
     },[])
 
     return(

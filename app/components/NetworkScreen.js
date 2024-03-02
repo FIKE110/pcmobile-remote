@@ -1,6 +1,7 @@
 import { Button, StyleSheet, View } from "react-native";
 import TcpSocket from 'react-native-tcp-socket'
 
+
 export function NetworkScreen(){
 // Create a socket instance
 const options = {
@@ -11,7 +12,6 @@ const options = {
 // Create socket
 const makeRequest=()=>
     {
-
         console.log('helo')
         const client = TcpSocket.createConnection(options, () => {
   // Write on the socket

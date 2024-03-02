@@ -30,6 +30,10 @@ import Main from './app/screens/Main';
 import { MMKV } from "react-native-mmkv"
 
 export const storage=new MMKV()
+export const defaultConfig={
+  name:'Fortunes Phone',
+  port:5031
+}
 
 function App() {
   

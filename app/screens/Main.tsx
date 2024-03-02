@@ -4,21 +4,26 @@ import ConnectStatus from "./ConnectStatus"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import DeviceConnectedScreen from "./DeviceConnectedScreen"
 import QRScanner from "./QRScanner"
+import DrawerConnectedNavigator from "../navigators/DrawerConnectedNavigator"
+import { useRef } from "react"
+import {SocketProvider} from "../SocketContext"
+
 
 const Stack=createNativeStackNavigator()
 
 function Main(){
     return(
+      <SocketProvider>
         <NavigationContainer>
-        <Stack.Navigator initialRouteName='first' screenOptions={{headerShown:false}}>
+        <Stack.Navigator initialRouteName='homeScreen' screenOptions={{headerShown:false}}>
           <Stack.Screen 
-          name='first' component={HometabNavigator}/>
-          <Stack.Screen name='second' component={ConnectStatus} />
-          <Stack.Screen name=
-          'third' component={DeviceConnectedScreen} />
-          <Stack.Screen name='camera' component={QRScanner} />
+          name='homeScreen' component={HometabNavigator}/>
+          <Stack.Screen name='cameraScreen' component={QRScanner} />
+          <Stack.Screen name='connectScreen' component={ConnectStatus} />
+          <Stack.Screen name='controllerScreen' component={DrawerConnectedNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
+      </SocketProvider>
     )
 }
 

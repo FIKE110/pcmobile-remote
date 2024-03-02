@@ -1,26 +1,25 @@
-import { useEffect, useState ,useRef} from "react";
-import { ScrollView,KeyboardAvoidingView, Button, Image, Pressable, StyleSheet ,Text,TextInput,TouchableOpacity,View, PermissionsAndroid} from "react-native";
+import { useEffect, useState ,useRef, useContext} from "react";
+import {BackHandler , Button, Image, Pressable, StyleSheet ,Text,TextInput,TouchableOpacity,View, PermissionsAndroid} from "react-native";
 import DeviceInfo from "../components/DeviceInfo";
 import ConnectedDevices from "../components/ConnectedDevices";
 import { Camera, useCameraDevice, useCameraPermission } from "react-native-vision-camera";
 import { PERMISSIONS } from "react-native-permissions";
+import { defaultConfig } from "../../App";
 
 type Options={
     ip:string,
     port:number
 }
 
-export default function ConnectionScreen({navigation}){
+export default function ConnectionScreen({navigation,route}){
     const [focus,setFocus] = useState(false)
     const [ip,setIp] =useState('')
     const [reload,setReload] = useState(false)
-    const cameraDevice=useCameraDevice('back');
 
     const scanWithCamera= async ()=>{
         const cameraPermission=Camera.getCameraPermissionStatus()
         if(cameraPermission=='granted'){
-            console.log('hello')
-           navigation.navigate('camera',{cameraDevice:cameraDevice})
+           navigation.navigate('cameraScreen')
         }
          else{
             await Camera.requestCameraPermission()
@@ -30,10 +29,10 @@ export default function ConnectionScreen({navigation}){
     const connectToSocket=()=>{
         const options:Options={
             ip:ip,
-            port:4000
+            port:defaultConfig.port
         }
         if(options.ip){
-            navigation.navigate('second',{device:options})
+            navigation.navigate('connectScreen',{device:options})
         }
         console.log(ip)
     }
